@@ -33,6 +33,7 @@ class List extends React.Component {
                         />
                       </svg>
                       {task.file.name}
+                      
                     </a>
                   </li>
                   <li className="w-1/5 flex justify-between">

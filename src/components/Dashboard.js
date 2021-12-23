@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import List from "./List";
-import {
-  newTask,
+import NewTaskForm from "./NewTaskForm";
+import EditTaskForm from "./EditTaskForm";
+import ListInfo from "./ListInfo";
+import NavBar from "./NavBar";
+import {newTask,
   getTasks,
   deleteTask,
   getSingleTask,
   editTask,
 } from "../Fetch";
-import NewTaskForm from "./NewTaskForm";
-import EditTaskForm from "./EditTaskForm";
-import ListInfo from "./ListInfo";
-import NavBar from "./NavBar";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -27,6 +26,25 @@ class Dashboard extends Component {
       editForm: null,
     };
   }
+    handleSubmit = async (e) => {
+    e.preventDefault();
+    const { description, file, category, user_id } = this.state;
+    const task = {
+      description,
+      file,
+      category,
+      user_id,
+    };
+    const data = new FormData();
+    for (const name in task) {
+      data.append(name, task[name]);
+    }
+    await newTask(data);
+    window.location.reload();
+    this.setState({
+      showForm: !this.state.showForm,
+    });
+  };
   handleLogout = (e) => {
     localStorage.clear();
     window.location.href = `${process.env.REACT_APP_KEY_FE}/`;
@@ -77,25 +95,7 @@ class Dashboard extends Component {
       [name]: e.target.value,
     });
   };
-  handleSubmit = async (e) => {
-    e.preventDefault();
-    const { description, file, category, user_id } = this.state;
-    const task = {
-      description,
-      file,
-      category,
-      user_id,
-    };
-    const data = new FormData();
-    for (const name in task) {
-      data.append(name, task[name]);
-    }
-    await newTask(data);
-    window.location.reload();
-    this.setState({
-      showForm: !this.state.showForm,
-    });
-  };
+
 
   async componentDidMount() {
     const res = await getTasks(this.state.user_id);
