@@ -16,7 +16,8 @@ function EditTaskForm(props) {
           onChange={(e) => {
             props.handleChange(e);
           }}
-          placeholder={props.editForm.task.description}
+          // placeholder={props.editForm.task.description}
+           defaultValue={props.editForm.task.description}
         />
         <input
           type="file"
@@ -33,7 +34,8 @@ function EditTaskForm(props) {
           onChange={(e) => {
             props.handleChange(e);
           }}
-          placeholder={props.editForm.task.category}
+          defaultValue={props.editForm.task.category}
+          // placeholder={props.editForm.task.category}
         />
         <button type="submit" className="bg-green-300 p-2">
           Confirm Edit

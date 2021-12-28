@@ -35,6 +35,7 @@ export async function getSingleTask(id) {
   return response.json();
 }
 export async function editTask(data, id) {
+  console.log(data, id);
   const url = `${process.env.REACT_APP_KEY}/tasks/${id}`;
   const response = await fetch(url, {
     method: "PUT",

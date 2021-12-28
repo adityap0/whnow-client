@@ -76,6 +76,10 @@ class Dashboard extends Component {
     };
     const data = new FormData();
     for (const name in task) {
+      if(!task[name])
+      {    
+        task[name]= this.state.editForm.task[name]
+      }
       data.append(name, task[name]);
     }
     await editTask(data, editForm.task._id);
